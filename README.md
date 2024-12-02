@@ -20,7 +20,7 @@ To run this script, you will need the following Python libraries:
 
 You can install them using pip:
 
-pip install numpy scikit-learn joblib
+`pip install numpy scikit-learn joblib`
 
 ### The script will:
         Generate synthetic data.
