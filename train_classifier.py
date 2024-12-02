@@ -1,14 +1,14 @@
 # Importing required libraries
 import numpy as np
-import sklearn
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
-
 from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score,f1_score
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, f1_score
 import joblib
 
-# generating data
+# Generating data
 def generate_data(
     n_samples=100, 
     n_features=20, 
@@ -29,39 +29,46 @@ def generate_data(
         random_state=random_state
     )
 
-# creating and seperating dataset
-
+# Creating and separating the dataset
 data_x, data_y = generate_data(n_samples=10000, n_features=4, n_informative=2, n_classes=2, 
-                                                   n_clusters_per_class=2, 
-                                                   class_sep=1.0)
+                               n_clusters_per_class=2, class_sep=1.0)
 
 X_train, X_test_val, y_train, y_test_val = train_test_split(data_x, data_y, test_size=.3, random_state=0, shuffle=True)
-
 X_test, X_val, y_test, y_val = train_test_split(X_test_val, y_test_val, test_size=1/3, random_state=0, shuffle=True)
-
 
 print(y_train.shape[0], y_test.shape[0], y_val.shape[0], type(y_val))
 
-# saving validation data
+# Saving validation data
 np.savez("validation_data.npz", X=X_val, y=y_val)
 
-#======================================
-
-# Initialize the SVM model with a linear kernel
+# Initialize models
 svm_model = SVC(kernel='linear')
+decision_tree_model = DecisionTreeClassifier(random_state=0)
+logistic_regression_model = LogisticRegression(random_state=0, max_iter=1000)
 
-# Train the model
+# Train SVM model
 svm_model.fit(X_train, y_train)
-
-# Make predictions on the test set
-y_pred = svm_model.predict(X_test)
-
-# Print the accuracy and f1_score of the model
-print(f"Accuracy: {accuracy_score(y_test, y_pred)}")
-print(f"F1 Score: {f1_score(y_test, y_pred, average='weighted')}")
-
-# Save the trained model to a file
+y_pred_svm = svm_model.predict(X_test)
+print("SVM Results:")
+print(f"Accuracy: {accuracy_score(y_test, y_pred_svm)}")
+print(f"F1 Score: {f1_score(y_test, y_pred_svm, average='weighted')}")
 joblib.dump(svm_model, 'svm_model.pkl')
 
-print("Model saved to svm_model.pkl")
+# Train Decision Tree model
+decision_tree_model.fit(X_train, y_train)
+y_pred_tree = decision_tree_model.predict(X_test)
+print("\nDecision Tree Results:")
+print(f"Accuracy: {accuracy_score(y_test, y_pred_tree)}")
+print(f"F1 Score: {f1_score(y_test, y_pred_tree, average='weighted')}")
+joblib.dump(decision_tree_model, 'decision_tree_model.pkl')
+
+# Train Logistic Regression model
+logistic_regression_model.fit(X_train, y_train)
+y_pred_logistic = logistic_regression_model.predict(X_test)
+print("\nLogistic Regression Results:")
+print(f"Accuracy: {accuracy_score(y_test, y_pred_logistic)}")
+print(f"F1 Score: {f1_score(y_test, y_pred_logistic, average='weighted')}")
+joblib.dump(logistic_regression_model, 'logistic_regression_model.pkl')
+
+print("\nModels saved to respective files.")
 
