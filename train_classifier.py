@@ -4,6 +4,10 @@ import sklearn
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score,f1_score
+import joblib
+
 # generating data
 def generate_data(
     n_samples=100, 
@@ -40,3 +44,24 @@ print(y_train.shape[0], y_test.shape[0], y_val.shape[0], type(y_val))
 
 # saving validation data
 np.savez("validation_data.npz", X=X_val, y=y_val)
+
+#======================================
+
+# Initialize the SVM model with a linear kernel
+svm_model = SVC(kernel='linear')
+
+# Train the model
+svm_model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = svm_model.predict(X_test)
+
+# Print the accuracy and f1_score of the model
+print(f"Accuracy: {accuracy_score(y_test, y_pred)}")
+print(f"F1 Score: {f1_score(y_test, y_pred, average='weighted')}")
+
+# Save the trained model to a file
+joblib.dump(svm_model, 'svm_model.pkl')
+
+print("Model saved to svm_model.pkl")
+

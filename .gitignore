@@ -1,0 +1,9 @@
+*.pkl
+# Ignore Jupyter notebook checkpoints (in case you want to ignore metadata files)
+.ipynb_checkpoints/
+
+# Ignore other common files
+__pycache__/
+*.pyc
+*.log
+*.tmp
