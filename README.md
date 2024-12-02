@@ -34,6 +34,6 @@ You can install them using pip:
 loads pre-trained machine learning models (SVM, Decision Tree, and Logistic Regression), loads validation data, and evaluates the models' performance using accuracy, recall, precision, and F1 score metrics.
 
 ### to run this code you need :
-  -download docker image form docker hub : docker pull boualem775/examen-git-docker-app
+  -download docker image form docker hub : `docker pull boualem775/examen-git-docker-app`
   
-  -to run the image :docker run boualem775/examen-git-docker-app
+  -to run the image : `docker run boualem775/examen-git-docker-app`
