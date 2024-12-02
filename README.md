@@ -1,5 +1,5 @@
 # EXAMEn-GIT-DOCKER
-Introduction
+## Introduction
 
 train_classifier.py script provides a workflow for training and optimizing machine learning models for binary classification tasks. The dataset is synthetically generated using make_classification from sklearn, and hyperparameters for the models are optimized using GridSearchCV.
 
