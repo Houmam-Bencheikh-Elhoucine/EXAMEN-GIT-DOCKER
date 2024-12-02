@@ -73,7 +73,7 @@ y_pred_svm = optimized_svm.predict(X_test)
 print("\nSVM Results:")
 print(f"Accuracy: {accuracy_score(y_test, y_pred_svm):.2f}")
 print(f"F1 Score: {f1_score(y_test, y_pred_svm, average='weighted'):.2f}")
-joblib.dump(optimized_svm, 'optimized_svm_model.pkl')
+joblib.dump(optimized_svm, 'svm_model.pkl')
 
 # Optimize Decision Tree
 optimized_tree = optimize_model(DecisionTreeClassifier(random_state=0), decision_tree_param_grid, X_train, y_train, "Decision Tree")
@@ -83,7 +83,7 @@ y_pred_tree = optimized_tree.predict(X_test)
 print("\nDecision Tree Results:")
 print(f"Accuracy: {accuracy_score(y_test, y_pred_tree):.2f}")
 print(f"F1 Score: {f1_score(y_test, y_pred_tree, average='weighted'):.2f}")
-joblib.dump(optimized_tree, 'optimized_decision_tree_model.pkl')
+joblib.dump(optimized_tree, 'decision_tree_model.pkl')
 
 # Optimize Logistic Regression
 optimized_logistic = optimize_model(LogisticRegression(max_iter=1000), logistic_regression_param_grid, X_train, y_train, "Logistic Regression")
@@ -93,7 +93,7 @@ y_pred_logistic = optimized_logistic.predict(X_test)
 print("\nLogistic Regression Results:")
 print(f"Accuracy: {accuracy_score(y_test, y_pred_logistic):.2f}")
 print(f"F1 Score: {f1_score(y_test, y_pred_logistic, average='weighted'):.2f}")
-joblib.dump(optimized_logistic, 'optimized_logistic_regression_model.pkl')
+joblib.dump(optimized_logistic, 'logistic_regression_model.pkl')
 
 print("\nOptimized models saved to respective files.")
 
